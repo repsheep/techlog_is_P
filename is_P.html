@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <meta charset="utf-8">
+       <title>[Android Studio]エラトステネスの篩を用いた素数判定アプリ</title>
+       <link rel="stylesheet" href="is_P.css">
+       <link rel="shortcut icon" href="is_P_images/is_Pfav.ico">
+    <body>
+        <nav>
+            <img class="logo" src="../../images/logo.png" alt="RepSheep">
+            <ul class="nav-links">
+                <li><a href="../../toppage.html">トップ</a></li>
+                <li><a href="../../gallery.html">ギャラリー</a></li>
+                <li><a href="../../techlog.html">技術禄</a></li>
+                <li><a href="../../contact.html">お問い合わせ</a></li>
+                <li><a href="../../diary.html">日記</a></li>
+            </ul>
+        </nav>
+        <div class="main">
+        <h1>素数判定アプリ「Simple_is_P」の紹介</h1><br>
+        <h2>1.使用した技術</h2>
+        <li>Android studio</li>
+        <li>言語はJava</li>
+        <br>
+        <h2>2.エラトステネスの篩</h2>
+        いきなりサンプルコード(Java)↓↓<br>
+        <div class="code">
+        <pre>
+        <code>
+            boolean is_P[]=new boolean[checkedNumber+10];
+            for(int i=0;i&lt;checkedNumber+10;i++){
+                is_P[i]=true;
+            }
+            is_P[0]=false;
+            is_P[1]=false;
+            for(int i=0;i*i&lt;=checkedNumber+10;i++){
+                if(is_P[i]==false) continue;
+                for(int j=i*i;j&lt;checkedNumber+10;j+=i) is_P[j]=false;
+            }
+            if(is_P[checkedNumber]==true) resultTextView.setText(&quot;&quot;+checkedNumber+&quot;は素数です&quot;);
+            else resultTextView.setText(&quot;&quot;+checkedNumber+&quot;は素数ではありません&quot;);
+        </code>
+        </pre>
+        </div>
+        サンプルコードを言葉で説明するとこんな感じ↓<br><br>
+            <p>①is_Pのすべての要素を"true"にセット</p>
+            <p>②is_P[0]とis_P[1]を"false(素数ではない)"に変更</p>
+            <p>③i=2からi*iが判定したい数値に達するまで(実コードでは+10ほど余裕を持たせている)以下の操作を繰り返す</p>
+            <p>　(a)is_P[i]が"false"なら何もせずにiに1を加える</li>
+            <p>　(b)is_P[i]が"true"なら、iは素数で決まりで、<font color="red">i*i以降のiの倍数について、is_Pの値を"false"に書き換える</font></p>
+            <p>④is_P[判定したい数値]が"true"なら素数、"false"なら素数ではない。</p>
+        <br><br>
+
+        <p>実際の動作を見てみよう(1~50までの場合)</p><br>
+        <p>(1)まず1に×をつける(0は省略)</p><br>
+        <img class="slide"  src="is_P_images/slide1.PNG" alt="RepSheep"><br><br><br>
+        <p>(2)i=2のとき、2は素数で、2*2以降の2の倍数は素数ではないと決まる</p><br>
+        <img class="slide"  src="is_P_images/slide2.PNG" alt="RepSheep"><br><br><br>
+        <p>(3)i=3のとき、3は素数で、3*3以降の3の倍数は素数ではないと決まる。
+        このとき、6も3の倍数だが6=3*2は2の倍数の処理でもう排除されている。<br>このように、n=p*q(p&ltq)のときnが素数でないことは、qの倍数の処理で決まっている。<br>
+    これが、i以降ではなくi*i以降の処理でよい理由である。</p><br>
+        <img class="slide"  src="is_P_images/slide3.PNG" alt="RepSheep"><br><br><br>
+        <p>(4)i=4はすでに×がついている。i=5についても同様の操作を行う。</p><br>
+        <img class="slide"  src="is_P_images/slide4.PNG" alt="RepSheep"><br><br><br>
+        <p>(5)i=6は飛ばす。i=7により×が増える</p><br>
+        <img class="slide"  src="is_P_images/slide5.PNG" alt="RepSheep"><br><br><br>
+        <p>(6)これでi=8でi*iは50を超えるので操作終了。生き残って数字はすべて素数である。</p><br>
+        <img class="slide"  src="is_P_images/slide6.PNG" alt="RepSheep"><br><br><br><br>
+        <h2>3計算量</h2><br>
+        <p>O(n*loglog(n))と言われている。解説は他の記事に譲る。</p><br><br><br>
+    </div>
+        <script src="is_P.js"></script>
+    </body>
+</html>
