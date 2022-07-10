@@ -2,7 +2,7 @@
 <html>
     <head>
        <meta charset="utf-8">
-       <title>[Android Studio]エラトステネスの篩を用いた素数判定アプリ</title>
+       <title>エラトステネスの篩を用いた素数判定</title>
        <link rel="stylesheet" href="is_P.css">
        <link rel="shortcut icon" href="is_Pfav.ico">
     <body>
@@ -17,28 +17,28 @@
             </ul>
         </nav>
         <div class="main">
-        <h1>素数判定アプリ「Simple_is_P」の紹介</h1><br>
-        <h2>1.使用した技術</h2>
-        <li>Android studio</li>
-        <li>言語はJava</li>
+        <h1>エラトステネスの篩の解説</h1><br>
+        <h2>1.エラトステネスの篩とは</h2>
+        <p>1~nのそれぞれの数字が素数かどうかを判定するアルゴリズムです。結果はbool型の配列に格納しておき、配列のインデックスに調べたい数字を入れるという方法で利用するのが一般的です。</p>
         <br>
         <h2>2.エラトステネスの篩</h2>
         いきなりサンプルコード(Java)↓↓<br>
         <div class="code">
         <pre>
         <code>
-            boolean is_P[]=new boolean[checkedNumber+10];
-            for(int i=0;i&lt;checkedNumber+10;i++){
+            boolean is_P[]=new boolean[n+10];
+            for(int i=0;i&lt;n+10;i++){
                 is_P[i]=true;
             }
             is_P[0]=false;
             is_P[1]=false;
-            for(int i=0;i*i&lt;=checkedNumber+10;i++){
+            for(int i=0;i*i&lt;=n+10;i++){
                 if(is_P[i]==false) continue;
-                for(int j=i*i;j&lt;checkedNumber+10;j+=i) is_P[j]=false;
+                for(int j=i*i;j&lt;n+10;j+=i) is_P[j]=false;
             }
-            if(is_P[checkedNumber]==true) resultTextView.setText(&quot;&quot;+checkedNumber+&quot;は素数です&quot;);
-            else resultTextView.setText(&quot;&quot;+checkedNumber+&quot;は素数ではありません&quot;);
+            //mは調べたい数字
+            if(is_P[m]==true) resultTextView.setText(&quot;&quot;+m+&quot;は素数です&quot;);
+            else resultTextView.setText(&quot;&quot;+m+&quot;は素数ではありません&quot;);
         </code>
         </pre>
         </div>
@@ -66,7 +66,7 @@
         <img class="slide"  src="slide5.PNG" alt="RepSheep"><br><br><br>
         <p>(6)これでi=8でi*iは50を超えるので操作終了。生き残って数字はすべて素数である。</p><br>
         <img class="slide"  src="slide6.PNG" alt="RepSheep"><br><br><br><br>
-        <h2>3計算量</h2><br>
+        <h2>3.計算量</h2><br>
         <p>O(n*loglog(n))と言われている。解説は他の記事に譲る。</p><br><br><br>
     </div>
         <script src="is_P.js"></script>
