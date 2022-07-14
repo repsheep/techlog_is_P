@@ -22,23 +22,31 @@
         <p>1~nのそれぞれの数字が素数かどうかを判定するアルゴリズムです。結果はbool型の配列に格納しておき、配列のインデックスに調べたい数字を入れるという方法で利用するのが一般的です。</p>
         <br>
         <h2>2.エラトステネスの篩</h2>
-        いきなりサンプルコード(Java)↓↓<br>
+        いきなりサンプルコード(C++)↓↓<br>
         <div class="code">
         <pre>
         <code>
-            boolean is_P[]=new boolean[n+10];
-            for(int i=0;i&lt;n+10;i++){
-                is_P[i]=true;
-            }
-            is_P[0]=false;
-            is_P[1]=false;
-            for(int i=0;i*i&lt;=n+10;i++){
-                if(is_P[i]==false) continue;
-                for(int j=i*i;j&lt;n+10;j+=i) is_P[j]=false;
-            }
-            //mは調べたい数字
-            if(is_P[m]==true) resultTextView.setText(&quot;&quot;+m+&quot;は素数です&quot;);
-            else resultTextView.setText(&quot;&quot;+m+&quot;は素数ではありません&quot;);
+           #include&lt;iostream&gt;
+           #include&lt;vector&gt;
+           using namespace std;
+
+           int main() {
+             int n;
+             cin &gt;&gt; n;
+
+             vector&lt;bool&gt; is_P(n + 1,true);
+
+             is_P[0] = is_P[1] = false;
+
+             for (int i = 2; i * i &lt;= n; i++) {
+                if (is_P[i] == false) continue;
+                for (int j = i * i; j &lt;= n; j += i) is_P[j] = false;
+             }
+             //1~nまでの判定結果
+             for (int i = 1; i &lt;= n; i++) cout &lt;&lt;i&lt;&lt;&quot;:&quot;&lt;&lt; is_P[i] &lt;&lt; &quot;\n&quot;;
+
+            return 0;
+           }
         </code>
         </pre>
         </div>
